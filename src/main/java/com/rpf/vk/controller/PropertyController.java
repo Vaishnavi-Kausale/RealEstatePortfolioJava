@@ -36,7 +36,7 @@ public class PropertyController {
 		return propertyrepo.findAll();
 	}
 	
-	//search property
+	//search property using given query
 	
 	//add new property
 	@RequestMapping(method = RequestMethod.POST, value = "/create")
