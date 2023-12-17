@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.AbstractPageRequest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,10 +34,11 @@ public class PropertyController {
 	}
 	
 	//get all property list
-	@RequestMapping(method = RequestMethod.GET, value = "/getall")
-	List<PropertyEntity> getPropertyList()
+	@RequestMapping(method = RequestMethod.GET, value = "/getall/{pageid}")
+	Page<PropertyEntity> getPropertyList(@PathVariable int pageid)
 	{
-		return propertyrepo.findAll();
+		Pageable pageable=PageRequest.of(pageid, 20);
+		return propertyrepo.findAll(pageable);
 	}
 	
 	//search property using given query
