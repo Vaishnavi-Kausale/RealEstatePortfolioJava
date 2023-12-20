@@ -16,6 +16,15 @@ public class PropertyEntity {
     double deposite;
     double additionalcharges;
     String description;
+    //0 for available, 1 for sold/rented
+    int propertystatus=0;
+    
+	public int getPropertystatus() {
+		return propertystatus;
+	}
+	public void setPropertystatus(int propertystatus) {
+		this.propertystatus = propertystatus;
+	}
 	public long getId() {
 		return id;
 	}

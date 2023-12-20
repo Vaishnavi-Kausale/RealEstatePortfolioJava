@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rpf.vk.entity.PropertyEntity;
+import com.rpf.vk.entity.PropertystatusPojo;
 import com.rpf.vk.repo.PropertyRepo;
 
 @CrossOrigin(origins = "*")
@@ -38,7 +39,7 @@ public class PropertyController {
 	Page<PropertyEntity> getPropertyList(@PathVariable int pageid)
 	{
 		Pageable pageable=PageRequest.of(pageid, 20);
-		return propertyrepo.findAll(pageable);
+		return propertyrepo.findAllByPropertystatus(0,pageable);
 	}
 	
 	//search property using given query
@@ -49,4 +50,15 @@ public class PropertyController {
 	{
 		return propertyrepo.save(obj);
 	}
+	
+	//add new property
+	@RequestMapping(method = RequestMethod.POST, value = "/update-property-status")
+	PropertyEntity updatePropertystatus(@RequestBody PropertystatusPojo obj)
+	{
+		PropertyEntity prop_obj = propertyrepo.findById(obj.getPropertyid()).get();
+		prop_obj.setPropertystatus(obj.getStatus());
+		return propertyrepo.save(prop_obj);
+	}
 }
+
+
